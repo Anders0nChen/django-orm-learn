@@ -72,3 +72,6 @@ class AuthorDetail(models.Model):
 #     author_id = models.ForeignKey(to="Author")
 #     book_id = models.ForeignKey(to="Book")
 #
+
+# git test
+# lalala
