@@ -89,3 +89,5 @@ class AuthorDetail(models.Model):
 # git test
 # 开发完成！！！ 100% 20点19分
 
+# github test
+# github提交测试！！！
