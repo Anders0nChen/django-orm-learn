@@ -76,7 +76,16 @@ class AuthorDetail(models.Model):
 # git test
 # lalala
 
+
 # git test
 # 修复bug 18点43分
 
+
+# =======
+
+# git test
+# 开发功能中。。。。 50% 18点41分
+
+# git test
+# 开发完成！！！ 100% 20点19分
 
