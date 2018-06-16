@@ -170,7 +170,37 @@ if __name__ == '__main__':
     # ret = models.Book.objects.filter(Q(sold__gt=1000) | Q(price__lt=100), title__contains="python")
     # print(ret)
 
-    author_obj = models.Author.objects.get(id=1)
-    obj = author_obj.detail
-    print(obj)
-    print("爱好 {} 住址 {}".format(obj.hobby, obj.addr))
+    # author_obj = models.Author.objects.get(id=1)
+    # obj = author_obj.detail
+    # print(obj)
+    # print("爱好 {} 住址 {}".format(obj.hobby, obj.addr))
+
+    # ret = models.Employee.objects.all().values("dept")
+    # print(ret)
+
+    # ret = models.Employee.objects.values("dept").annotate(avg=Avg("salary")).values("dept","avg")
+    # print(ret)
+
+    # ret = models.EmployeeB.objects.values("dept_id").annotate(avg=Avg("salary")).values("dept__name","avg")
+    # print(ret)
+
+    # 查所有员工和部门名称
+    # ret = models.EmployeeB.objects.values("name", "dept__name")
+    # print(ret)
+
+    # ret = models.EmployeeB.objects.select_related().values("name", "dept__name")
+    # print(ret)
+
+    # ret = models.Author.objects.select_related().values("name", "book__title")
+    # print(ret)
+
+    # ret = models.Author.objects.prefetch_related().values("name", "book__title")
+    # print(ret)
+    #
+    # # 批量创建100个书籍对象
+    # objs = [models.Person(name="批量创建{}".format(i+105)) for i in range(1000)]
+    # models.Person.objects.bulk_create(objs, 10) # 每10个提交一次
+
+    # 批量创建100个部门对象
+    objs = [models.Dept(name="批量创建{}".format(i)) for i in range(100)]
+    models.Dept.objects.bulk_create(objs, 10) # 每10个提交一次
