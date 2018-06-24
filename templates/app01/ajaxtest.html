@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX test</title>
+</head>
+<body>
+{% csrf_token %}
+<input type="text" id="i1">+
+<input type="text" id="i2">=
+<input type="text" id="i3">
+<input type="submit" value="Submit!" id="ajaxgo">
+
+<script src="/static/jquery-3.3.1.js"></script>
+<script>
+    $("#ajaxgo").on("click", function () {
+
+        var csrfToken = $("[name='csrfmiddlewaretoken']").val()
+
+        $.ajax({
+            url:"/app01/ajax_add/",
+            type:"POST",
+
+            data:{"i1":$("#i1").val(), "i2":$("#i2").val(), "csrfmiddlewaretoken":csrfToken},
+
+            {#headers:{"X-CSRFToken":$.cookie('csrftoken')},#}
+            {#data:{"i1":$("#i1").val(), "i2":$("#i2").val()},#}
+
+            success:function (data) {
+                $("#i3").val(data);
+            }
+        })
+    })
+</script>
+</body>
+</html>

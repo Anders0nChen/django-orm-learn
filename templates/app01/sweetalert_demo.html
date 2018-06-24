@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>sweetalert demo</title>
+    <link rel="stylesheet" href="/static/sweetalert/sweetalert.css">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/fontawesome/css/font-awesome.min.css">
+    <style>
+        .sweet-alert > h2 {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Person management</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>ID</th>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>生日</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    {% for p in persons %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ p.id }}</td>
+                            <td>{{ p.name }}</td>
+                            <td>{{ p.age }}</td>
+                            <td>{{ p.birthday|date:'Y-m-d' }}</td>
+                            <td>
+                                <button class="btn btn-danger del"><i class="fa fa-trash-o"></i>删除</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="/static/jquery-3.3.1.js"></script>
+<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/sweetalert/sweetalert.min.js"></script>
+<script src="/static/ajaxcookie.js"></script>
+
+<script>
+    // find delete button and bind with delete operation
+    $(".del").on("click", function () {
+        var $trEle = $(this).parent().parent();
+        var del_id = $trEle.children().eq(1).text();
+        {#swal("标题","内容","success");#}
+        {#swal("biaoti", "neirong", "warning");#}
+        {#undefined#}
+        {#swal("biaoti", "neirong", "error");#}
+        {#undefined#}
+        {#swal("biaoti", "neirong", "info");#}
+        {#undefined#}
+        swal({
+                title: "确定删除吗？",
+                text: "你将无法恢复该记录！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function (isConfirm) {
+                $.ajax({
+                    url: "/app01/delete/",
+                    type: "post",
+                    data: {"id":del_id},
+                    success:function (arg) {
+                        swal(arg, "你的虚拟文件已经被删除。", "success");
+                        $trEle.remove();
+                    }
+                });
+            });
+    })
+</script>
+</body>
+</html>
